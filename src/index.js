@@ -27,5 +27,19 @@ app.post('/account', (req, res) => {
   return res.status(201).send({ message: "Ok" });
 });
 
+app.get('/customer/', (req, res) => {
+  return res.status(200).send( { customers });
+});
+
+app.get('/statement', (req, res) => {
+  const { cpf } = req.headers;
+  const customer = customers.find( customer => customer.cpf === cpf);
+
+  if (!customer) {
+    return res.status(404).send({ message: 'Customer not found' });
+  }
+
+  return res.status(200).send({ message: customer.statement });
+});
 
 app.listen(3000);
