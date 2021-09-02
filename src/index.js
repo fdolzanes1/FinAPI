@@ -49,7 +49,7 @@ app.post('/account', (req, res) => {
   return res.status(201).send({ message: "Ok" });
 });
 
-app.get('/customer', (req, res) => {
+app.get('/account', (req, res) => {
   return res.status(200).send( { customers });
 });
 
@@ -113,5 +113,11 @@ app.put('/account', verifyIfExistsAccountCPF,  (req, res) => {
 
   return res.status(200).send({ message: customer});
 });
+
+app.delete('/account', verifyIfExistsAccountCPF, (req, res) => {
+  const { customer } = req;
+  customers.splice(customer, 1);
+  return res.status(200).send({ message: customer});
+})
 
 app.listen(3000);
